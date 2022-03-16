@@ -49,7 +49,7 @@ app.get("/api/welcome", (req,res)=>{
     res.status(200).send({message: "Welcome to the MEN-REST-API"});
 });
 
-import route from './server/routes/router.js';
+import route from './server/routes/blogRoutes.js';
 import authRoute from './server/routes/authRoutes.js';
 //To reference to the routes
 app.use('/', route);
