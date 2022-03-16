@@ -25,7 +25,7 @@ export const create = (req,res)=>{
     .then ((data) =>{
         console.log(data);
         console.log(bloge);
-        res.send(data);
+        res.status(201).send(data);
     })
     .catch((error)=>{
         // console(req.body);
@@ -40,17 +40,21 @@ export const create = (req,res)=>{
 export const find = (req,res)=>{
     if (req.query.id){
         const id = req.query.id;
+        console.log('hello hello ' + id);
         Blogdb.findById(id)
         .then((data)=>{
             if (!data){
-                res.status(404).send({message: "Not found user with id" + id})
+                // res.status(404).send({message: "Not found user with id" + id})
+                res.status(404).json({message: "Not found user with id" + id})
             }
             else {
                 res.send(data)
+                res.json(data)
             }
         })
         .catch((error)=>{
-            res.status(500).send({message: "Error retrieving the user with id: " + id})
+            // res.status(500).send({message: "Error retrieving the user with id: " + id})
+            res.status(500).json({message: "Error retrieving the user with id: " + id})
         })
     }
 
@@ -60,7 +64,8 @@ export const find = (req,res)=>{
             res.send(blog);
         })
         .catch((error)=>{
-            res.status(500).send({message:error.message || 'Error Occured while retrieving blog information'})
+            // res.status(500).send({message:error.message || 'Error Occured while retrieving blog information'})
+            res.status(500).json({message:error.message || 'Error Occured while retrieving blog information'})
         })
     }
 }

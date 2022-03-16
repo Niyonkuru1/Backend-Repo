@@ -14,10 +14,12 @@ const handleErrors = (error)=>{
     
     //validation errors
     if (error.message.includes('user validation failed')){
+        // console.log(Object.values(error.errors));
         Object.values(error.errors).forEach((er)=>{
+            // console.log(er.properties);
             errors[er.properties.path] = er.properties.message;
         });
-   
+   // console.log( `email_error  is ${errors.email} and the password_error is ${errors.email}`)
     }
     return errors;
 }
@@ -44,7 +46,23 @@ export const signup_post_contro = async (req,res)=>{
     catch(err){
         const error = handleErrors(err);
         res.status(400).json({error});
-       }
+    }
+    // const user = new Userdb({
+    //     email: email,
+    //     password:password
+    // })
+
+    // //save blog to database
+    // user
+    // .save(user)
+    // .then ((data) =>{
+    //     res.send(data)
+    // })
+    // .catch((error)=>{
+    //     res.status(500).send({
+    //         message:error.message || "Some error occured while creating a create operation"
+    //     });
+    // });
     }
 
  export const login_post_contro = async (req,res)=>{
@@ -54,10 +72,11 @@ export const signup_post_contro = async (req,res)=>{
             const user = await Userdb.login(email,password);
             console.log(user._id);
             const token = createToken(user._id);
-            res.cookie('jwt', token, {
-                httpOnly:true, maxAge: maxAge * 1000
-            })
-            res.status(200).json({user:user._id,})
+        
+            // res.cookie('jwt', token, {
+                // httpOnly:true, maxAge: maxAge * 1000
+            // })
+            res.status(200).json({user:user._id,token:token})
         }
         catch(err){
             res.status(400).json({errorio: err.message});
@@ -68,6 +87,7 @@ export const signup_post_contro = async (req,res)=>{
 
     export const logout_get_contro = (req,res) =>{
         res.cookie('jwt', '', {maxAge:1 });
+        res.status(200).json({message:"successfully logged out!",  token: null})
         res.redirect('/');
     }
 

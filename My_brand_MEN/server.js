@@ -21,7 +21,7 @@ app.use(express.static('public'));
 // database/connection.js
 
 // parse request to body-parser
-// app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyparser.urlencoded({extended:true}));
 //this just takes the json type data comes from the submitted form and process it to the regular 
 //javascript we can use
 app.use(express.json());
@@ -29,7 +29,7 @@ app.use(cookieParser())
 
 // view engine ( where the parser will get the data from
 // in terms of format )
-// app.set('view engine','ejs')
+app.set('view engine','ejs')
 // app.set('views', path.resolve(__dirname,'views/ejs')) in case your 
 // ejs files are inside the ejs folder of the views folder
 

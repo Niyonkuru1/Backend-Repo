@@ -3,7 +3,7 @@ const route = express.Router();
 import {allBlogsRoutes, addBlogRoutes, updateBlogRoutes, 
     deleteBlogRoutes, homeRoutes} from '../services/render';
 
-import {create, find,update, delet} from '../controller/blogController';
+import {create, find, update, delet} from '../controller/blogController';
 import requireAuth from '../middleware/authMiddleware';
 
 route.get('/',homeRoutes);
@@ -20,7 +20,8 @@ route.get('/delete-blog',requireAuth,deleteBlogRoutes);
 // API then 
 route.post('/api/blogs', create);
 route.get('/api/blogs', find);
-route.put('/api/blogs/:id', update);
-route.delete('/api/blogs/:id', delet);
+// route.get('/api/blogs/:id',requireAuth, findOne);
+route.put('/api/blogs/:id',requireAuth, update);
+route.delete('/api/blogs/:id',requireAuth, delet);
 
 module.exports = route;

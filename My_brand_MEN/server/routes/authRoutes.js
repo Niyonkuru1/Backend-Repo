@@ -13,7 +13,7 @@ authRoute.post('/login', login_post);
 // auth API
 authRoute.post('/auth/signup',signup_post_contro );
 authRoute.post('/auth/login',login_post_contro );
-authRoute.get('/logout',logout_get_contro );
+authRoute.get('/auth/logout',logout_get_contro );
 
 module.exports = authRoute;
 

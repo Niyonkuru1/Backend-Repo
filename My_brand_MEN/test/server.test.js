@@ -1,13 +1,22 @@
+import Blogdb from "../server/model/model";
 import chai from "chai";
 import chaiHttp from "chai-http";
 import app  from "../server";
 
 const expect = chai.expect;
-const should = chai.should();
+ chai.should();
 
 chai.use(chaiHttp);
 
+before((done)=>{
+    Blogdb.deleteMany({}, function(err){});
+    done();
+})
 
+after((done)=>{
+    Blogdb.deleteMany({}, function(err){});
+    done();
+})
 
 describe('/first test Collection', ()=>{
         it("test default API welcome route. . . . ", (done) =>{
@@ -15,20 +24,46 @@ describe('/first test Collection', ()=>{
             .get("/api/welcome")
             .end((err, res) => {
                 res.should.have.status(200);
-                res.body.should.be.a("array");
+                res.body.should.be.a("object");
+                res.body.message.should.be.equal('Welcome to the MEN-REST-API');
                 const message = res.body.message;
 
-                expect(message).to.be.equal("Welcome to the MEN-REST-API");
-                console.log(res.body.message);
+                // expect(message).to.be.equal("Welcome to the MEN-REST-API");
+                // console.log(res.body.message);
                 done();
             })
         })
-        it ("should test two values....", ()=>{
-        //actual test goes here 
-        let expectedVal = 10;
-        let actualVal = 10;
+        it ("should verify that we have 0 blogs in the DB", (done)=>{
+            chai.request(app)
+            .get("/api/blogs")
+            .end((err, res) => {
+                let blogData = res.body;
+                //using should
+                // res.should.have.status(200);
+                // res.body.should.be.a('array');
+                // res.body.should.have.lengthOf(0);
 
-        expect(actualVal).to.be.equal(expectedVal);
-        
+                //using expect
+                expect(res).to.have.status(200);
+                expect(blogData).to.be.a('array');
+                expect(blogData).to.have.lengthOf(0);
+                // expect(blogData).to.be.an('array').that.is.empty;
+                // expect(blogData).to.be.empty;
+                done()
+            })
     })
+
+    it ("should POST a valid product in the database", (done)=>{
+        chai.request(app)
+        .get("/api/blogs")
+        .end((err, res) => {
+            let blogData = res.body;
+            //using should
+            res.should.have.status(200);
+            res.body.should.be.a('array');
+            res.body.should.have.lengthOf(0);
+            done()
+        })
+})
+    
 })
