@@ -6,7 +6,7 @@ import  path  from "path";
 import cookieParser from 'cookie-parser';
 
 
-import  connectDB  from './server/database/connection';
+import  connectDB  from './server/database/connection.js';
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.static('public'));
 // database/connection.js
 
 // parse request to body-parser
-app.use(bodyparser.urlencoded({extended:true}));
+// app.use(bodyparser.urlencoded({extended:true}));
 //this just takes the json type data comes from the submitted form and process it to the regular 
 //javascript we can use
 app.use(express.json());
@@ -29,7 +29,7 @@ app.use(cookieParser())
 
 // view engine ( where the parser will get the data from
 // in terms of format )
-app.set('view engine','ejs')
+// app.set('view engine','ejs')
 // app.set('views', path.resolve(__dirname,'views/ejs')) in case your 
 // ejs files are inside the ejs folder of the views folder
 
@@ -40,16 +40,23 @@ connectDB();
 // you dont need to specify its path exclusively
 // just say css/file.css on the rest will be handled by 
 //path module
-app.use('/css',express.static(path.resolve(__dirname,"assets/css")))
-app.use('/img',express.static(path.resolve(__dirname,"assets/img")))
-app.use('/js',express.static(path.resolve(__dirname,"assets/js")));
+// app.use('/css',express.static(path.resolve(__dirname,"assets/css")));
+// app.use('/img',express.static(path.resolve(__dirname,"assets/img")));
+// app.use('/js',express.static(path.resolve(__dirname,"assets/js")));
 
+//routes for testing
+app.get("/api/welcome", (req,res)=>{
+    res.status(200).send({message: "Welcome to the MEN-REST-API"});
+});
+
+import route from './server/routes/router.js';
+import authRoute from './server/routes/authRoutes.js';
 //To reference to the routes
-app.use('/', require('./server/routes/router'));
-app.use('/', require('./server/routes/authRoutes'));
+app.use('/', route);
+app.use('/',authRoute);
+
+module.exports = app;
 
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost:${PORT}`)
 });
-
-// module.exports = app;

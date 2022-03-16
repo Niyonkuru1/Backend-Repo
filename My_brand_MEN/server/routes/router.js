@@ -3,7 +3,7 @@ const route = express.Router();
 import {allBlogsRoutes, addBlogRoutes, updateBlogRoutes, 
     deleteBlogRoutes, homeRoutes} from '../services/render';
 
-import {create, find,update, delet} from '../controller/controller';
+import {create, find,update, delet} from '../controller/blogController';
 import requireAuth from '../middleware/authMiddleware';
 
 route.get('/',homeRoutes);
