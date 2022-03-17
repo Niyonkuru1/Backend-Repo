@@ -11,7 +11,7 @@ export const create = (req,res)=>{
         });
         return;
     }
-    console.log(req.body);
+    // console.log(req.body);
     //new blog
     const bloge = new Blogdb({
         title: req.body.title,
@@ -23,8 +23,7 @@ export const create = (req,res)=>{
     bloge
     .save(bloge)
     .then ((data) =>{
-        console.log(data);
-        console.log(bloge);
+        // console.log(data);
         res.status(201).send(data);
     })
     .catch((error)=>{
@@ -40,7 +39,7 @@ export const create = (req,res)=>{
 export const find = (req,res)=>{
     if (req.query.id){
         const id = req.query.id;
-        console.log('hello hello ' + id);
+        // console.log('hello hello ' + id);
         Blogdb.findById(id)
         .then((data)=>{
             if (!data){
@@ -48,7 +47,7 @@ export const find = (req,res)=>{
                 res.status(404).json({message: "Not found user with id" + id})
             }
             else {
-                res.send(data)
+                // res.send(data)
                 res.json(data)
             }
         })
@@ -60,8 +59,8 @@ export const find = (req,res)=>{
 
     else {
         Blogdb.find()
-        .then((blog)=>{
-            res.send(blog);
+        .then((blogs)=>{
+            res.status(202).send(blogs);
         })
         .catch((error)=>{
             // res.status(500).send({message:error.message || 'Error Occured while retrieving blog information'})
