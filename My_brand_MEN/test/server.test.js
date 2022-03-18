@@ -12,26 +12,34 @@ before((done)=>{
 })
 
 after((done)=>{
-    // Blogdb.deleteMany({}, function(err){});
+    //Blogdb.deleteMany({}, function(err){});
     done();
 })
 
 describe('/api/blogs TEST on the bloges_DB Collection', () => {
-    //     it ("should verify that we have 0 blogs in the DB", (done)=>{
-    //         chai.request(app)
-    //         .get("/api/blogs")
-    //         .end((err, res) => {
-    //             //using expect
-    //             // expect(res).to.have.status(201);
-    //             // expect(blogData).to.be.a('array');
-    //             // expect(blogData).to.have.lengthOf(0);
-    //             // expect(blogData).to.be.an('array').that.is.empty;
-    //             // expect(blogData).to.be.empty;
-    //             done()
-    //         })
-    // })
+        it("It should test if the routes are correct and working", (done)=>{
+            chai.request(app)
+            .get("/api/blogs")
+            .end((err,res) =>{
+                res.should.have.status(202);
+                done()
+            })
+            
+        })
+        it ("should verify that we have 0 blogs in the DB", (done)=>{
+            chai.request(app)
+            .get("/api/blogs")
+            .end((err, res) => {
+                let blogData = res.body;
+                //using expect
+                expect(res).to.have.status(202);
+                expect(blogData).to.be.a('array');
+                expect(blogData).to.have.lengthOf(0);
+                done()
+            })
+    })
 
-    it("should POST a valid product in the database", (done) => {
+    it("should POST a valid blog in the database", (done) => {
         let blog = {
             title: "last 1234 test of posting the data in database",
             body: "USING MOCHA AND CHAI to test the end points",
@@ -51,7 +59,7 @@ describe('/api/blogs TEST on the bloges_DB Collection', () => {
             })
     })
 
-    it("Should retrieve all the blogs from database", (done) => {
+    it("Should retrieve 1 blogs from database", (done) => {
         let len;
         chai.request(app)
             .get("/api/blogs")
@@ -63,6 +71,7 @@ describe('/api/blogs TEST on the bloges_DB Collection', () => {
                 expect(blogs[0]).to.be.an('object');
                 expect(blogs[0]).to.have.nested.any.keys('title', 'author', 'body', "__v", "_id","date");
                 expect(len).to.not.be.an('undefined');
+                expect(len).to.be.equal(1);
                 console.log(len);
                 done();
             })
