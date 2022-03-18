@@ -53,7 +53,7 @@ connectDB();
 
 //routes for testing
 app.get("/api/welcome", (req,res)=>{
-    res.status(200).send({message: "Welcome to the MEN-REST-API"});
+    res.status(302).send({message: "Welcome to the MEN-REST-API"});
 });
 
 import route from './server/routes/blogRoutes.js';

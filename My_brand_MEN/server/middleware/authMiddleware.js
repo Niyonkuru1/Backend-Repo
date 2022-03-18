@@ -12,19 +12,11 @@ if (process.env.NODE_ENV == "production"){
 }
 else if (process.env.NODE_ENV == "test"){
     bearerHeader = req.body.token;
-    // console.log(bearerHeader);
 }   
     if (typeof (bearerHeader) !== 'undefined'){
-          var bearerToken;
-        if (bearerHeader.includes("Bearer")){
          //split the bearer from string to the array
-        const bearerArr = bearerHeader.split(" ");
-        bearerToken = bearerArr[1];
-        }
-        else{
-            
-        }
-
+        let bearerArr = bearerHeader.split(" ");
+        const bearerToken = bearerArr[1];
     //get the token from the array
         if(bearerToken){
             jwt.verify(bearerToken, 'the game secret', (err, decodedToken) =>{
@@ -49,17 +41,8 @@ else if (process.env.NODE_ENV == "test"){
         // console.log("from middleware");
     }
 
-    // checkUserCred(cookieToken);
-    // checkUserCred(bearerToken);
-    
-
-    
 }
 
-function checkUserCred(token){
-    //verify if the user exist and is verified
-  
-}
 export default requireAuth;
 
 

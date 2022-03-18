@@ -82,12 +82,17 @@ Blogdb.findByIdAndUpdate(id, req.body, {userFindAndModify:false})
 .then((data)=>{
     Blogdb.findById(id)
         .then((data)=>{
-            console.log(data);
+            // console.log(data);
             if (!data){
                 res.status(404).send({message: "Not found user with id" + id})
             }
             else {
-                res.send(data)
+                res.status(205).send({
+                    title:data.title,
+                    body:data.body,
+                    author:data.author,
+                    date:data.date
+                })
             }
 })
 .catch((error)=>{

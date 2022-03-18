@@ -17,11 +17,7 @@ components:
     Blog:
       type: object
       properties:
-        id:
-          type: string
         title:
-          type: string
-        description:
           type: string
         body:
           type: string
@@ -97,9 +93,7 @@ paths:
   /blogs:
     get:
       summary: Retrieves a list of blogs
-      description: Retrieves a list of blogs as JSON objects.
-      security:
-        - ApiKeyAuth: []  
+      description: Retrieves a list of blogs as JSON objects. 
       responses:
         200:
           description: A list of Blogs JSON objects in an array.
@@ -133,9 +127,7 @@ paths:
   /blogs/{id}:
     get:
       summary: Specific Blogs
-      description: Retrieves a specific Blogs based on it id.
-      security:
-        - ApiKeyAuth: []  
+      description: Retrieves a specific Blogs based on it id. 
       parameters:
         - in: path
           name: id

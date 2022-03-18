@@ -24,7 +24,7 @@ describe('/auth/sign TEST on the bloges_DB Collection', () => {
                 //  let len = 5;
                 let users = res.body;
                 // items = users.length;
-                res.should.have.status(201);
+                res.should.have.status(401);
                 expect(users.message).to.be.a("string");
                 expect(users.message).to.be.equal('login to access the routes!');
                 // console.log(users.message);
