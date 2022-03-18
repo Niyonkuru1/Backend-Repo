@@ -6,11 +6,14 @@ const requireAuth = (req, res, next)=>{
 
     //Grab the token from the header parts of the postman
     // FORMAT of them coming back => Authorization: Bearer <access_token>
-    const bearerHeader = req.headers['authorization'];
-   
-
-   
-
+    var bearerHeader;
+if (process.env.NODE_ENV == "production"){
+    bearerHeader = req.headers['authorization'];
+}
+else if (process.env.NODE_ENV == "test"){
+    bearerHeader = req.body.token;
+    // console.log(bearerHeader);
+}   
     if (typeof (bearerHeader) !== 'undefined'){
          //split the bearer from string to the array
     const bearerArr = bearerHeader.split(" ");
@@ -35,7 +38,9 @@ const requireAuth = (req, res, next)=>{
         }
     }
     else{
-        res.json({message: 'login to access the routes!'})
+        // res.status(404).json({message: 'login to access the routes!'});
+        res.status(404).send({message: 'login to access the routes!'});
+        // console.log("from middleware");
     }
 
     // checkUserCred(cookieToken);
@@ -50,3 +55,5 @@ function checkUserCred(token){
   
 }
 export default requireAuth;
+
+

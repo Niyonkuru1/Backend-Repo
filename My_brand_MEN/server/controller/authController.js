@@ -38,45 +38,37 @@ export const signup_post_contro = async (req,res)=>{
     try {
        const user = await Userdb.create({email, password}); 
        const token = createToken(user._id);
-       res.cookie('jwt', token, {
-           httpOnly:true, maxAge: maxAge * 1000
-       })
-       res.status(201).json({user: user._id});
+    //    res.cookie('jwt', token, {
+    //        httpOnly:true, maxAge: maxAge * 1000
+    //    })
+    //    res.status(201).json({user:user._id,token:token});
+       res.status(201).json({userCred:{
+        email: user.email,
+        password: user.password
+    },token:token})
+
     }
     catch(err){
         const error = handleErrors(err);
         res.status(400).json({error});
     }
-    // const user = new Userdb({
-    //     email: email,
-    //     password:password
-    // })
-
-    // //save blog to database
-    // user
-    // .save(user)
-    // .then ((data) =>{
-    //     res.send(data)
-    // })
-    // .catch((error)=>{
-    //     res.status(500).send({
-    //         message:error.message || "Some error occured while creating a create operation"
-    //     });
-    // });
     }
 
  export const login_post_contro = async (req,res)=>{
         const { email, password } = req.body;
-    console.log(email, password);
         try {
             const user = await Userdb.login(email,password);
-            console.log(user._id);
             const token = createToken(user._id);
         
             // res.cookie('jwt', token, {
                 // httpOnly:true, maxAge: maxAge * 1000
             // })
-            res.status(200).json({user:user._id,token:token})
+            // res.status(200).json({user:user._id,token:token})
+            res.status(200).json({userCred:{
+                email: user.email,
+                status:"Logged In",
+                message: "Welcome again, it is plaesure to have you back!"
+            },token:token})
         }
         catch(err){
             res.status(400).json({errorio: err.message});
@@ -87,8 +79,19 @@ export const signup_post_contro = async (req,res)=>{
 
     export const logout_get_contro = (req,res) =>{
         res.cookie('jwt', '', {maxAge:1 });
-        res.status(200).json({message:"successfully logged out!",  token: null})
-        res.redirect('/');
+        res.status(200).json({message:"successfully logged out!",  token: null});
+        // res.redirect('/');
+    }
+
+    export const get_all_users =(req,res)=>{
+        Userdb.find()
+        .then((users)=>{
+            res.status(202).send(users);
+        })
+        .catch((error)=>{
+            // res.status(500).send({message:error.message || 'Error Occured while retrieving blog information'})
+            res.status(500).json({message:error.message || 'Error Occured while retrieving blog information'})
+        })
     }
 
 
