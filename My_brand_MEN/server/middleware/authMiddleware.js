@@ -15,11 +15,17 @@ else if (process.env.NODE_ENV == "test"){
     // console.log(bearerHeader);
 }   
     if (typeof (bearerHeader) !== 'undefined'){
+          var bearerToken;
+        if (bearerHeader.includes("Bearer")){
          //split the bearer from string to the array
-    const bearerArr = bearerHeader.split(" ");
+        const bearerArr = bearerHeader.split(" ");
+        bearerToken = bearerArr[1];
+        }
+        else{
+            
+        }
 
     //get the token from the array
-    const bearerToken = bearerArr[1];
         if(bearerToken){
             jwt.verify(bearerToken, 'the game secret', (err, decodedToken) =>{
                 if(err){
@@ -39,7 +45,7 @@ else if (process.env.NODE_ENV == "test"){
     }
     else{
         // res.status(404).json({message: 'login to access the routes!'});
-        res.status(404).send({message: 'login to access the routes!'});
+        res.status(401).send({message: 'login to access the routes!'});
         // console.log("from middleware");
     }
 

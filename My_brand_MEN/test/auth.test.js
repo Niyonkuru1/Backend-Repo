@@ -19,12 +19,12 @@ after((done)=>{
 describe('/auth/sign TEST on the bloges_DB Collection', () => {
     it("Should test that Auth ROUTES, MIDDLEWARE and DATABASE are working", (done) => {
         chai.request(app)
-            .get("/auth/all-users")
+            .get("/api/auth/all-users")
             .end((err, res) => {
                 //  let len = 5;
                 let users = res.body;
                 // items = users.length;
-                res.should.have.status(404);
+                res.should.have.status(201);
                 expect(users.message).to.be.a("string");
                 expect(users.message).to.be.equal('login to access the routes!');
                 // console.log(users.message);
@@ -38,7 +38,7 @@ it("Should create a valid user into the databse", (done) => {
         password:"test123"
     }
     chai.request(app)
-        .post("/auth/signup")
+        .post("/api/auth/signup")
         .send(newUser)
         .end((err, res) => {
             let users = res.body;
@@ -59,7 +59,7 @@ it("Should create a valid user into the databse", (done) => {
         password:"test123"
     }
     chai.request(app)
-        .post("/auth/login")
+        .post("/api/auth/login")
         .send(User)
         .end((err, res) => {
             let users = res.body;
@@ -79,7 +79,7 @@ it("Should create a valid user into the databse", (done) => {
           token:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzQzYWVlMjI5ODhmNGI0MDc1NmUwZSIsImlhdCI6MTY0NzU5MDEzMSwiZXhwIjoxNjQ3ODQ5MzMxfQ.vV9oFyDieKZD0Yzxa7H8ENjHXyglihkWW_2_8NVAOQ8'
       }
     chai.request(app)
-        .get("/auth/all-users")
+        .get("/api/auth/all-users")
         .send(tokeni)
         .end((err, res) => {
             let users = res.body;
@@ -96,7 +96,7 @@ it("Should create a valid user into the databse", (done) => {
 
   it ("Should successfully logout the user with get request", (done)=>{
     chai.request(app)
-        .get("/auth/logout")
+        .get("/api/auth/logout")
         .end((err, res) => {
             let users = res.body;
             res.should.have.status(200);

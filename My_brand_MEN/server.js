@@ -5,6 +5,9 @@ import  bodyparser from "body-parser"
 // import  path  from "path";
 import cookieParser from 'cookie-parser';
 
+//swagger deps
+import swaggerUi from "swagger-ui-express";
+import yaml from "yamljs";
 
 import  connectDB  from './server/database/connection.js';
 
@@ -26,6 +29,10 @@ app.use(bodyparser.urlencoded({extended:true}));
 //javascript we can use
 app.use(express.json());
 app.use(cookieParser())
+
+//swagger setup
+const swaggerDefinition = yaml.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // view engine ( where the parser will get the data from
 // in terms of format )
