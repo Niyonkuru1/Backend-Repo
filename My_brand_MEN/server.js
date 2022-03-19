@@ -2,15 +2,18 @@ import express  from "express";
 import  dotenv  from "dotenv";
 import  morgan  from "morgan";
 import  bodyparser from "body-parser"
-// import  path  from "path";
+import  path  from "path";
 import cookieParser from 'cookie-parser';
 
 
 import  connectDB  from './server/database/connection.js';
+// app.use(_path);
 
 const app = express();
 
-dotenv.config({path:'config.env'})
+// dotenv.config() 
+dotenv.config({path: path.resolve('./config.env')});
+console.log(process.env.MONGO_URL);/*  as they were the arguments {path:'config.env'} */
 const PORT = process.env.PORT || 8080
 
 // log request. or logging the messages to the node using the morgan just 

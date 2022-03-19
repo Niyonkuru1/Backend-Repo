@@ -74,7 +74,7 @@ export const update = (req,res)=>{
 if (!req.body){
     return res
     .status(400)
-    .send({message: "Data to be updated doesn't exist, sorry to that!!"})
+    .send({message: "No content to update, point the correct blog"})
 }
 
 const id = req.params.id;
@@ -82,17 +82,19 @@ Blogdb.findByIdAndUpdate(id, req.body, {userFindAndModify:false})
 .then((data)=>{
     Blogdb.findById(id)
         .then((data)=>{
-            console.log(data);
             if (!data){
-                res.status(404).send({message: "Not found user with id" + id})
+                res.status(404).send({message: "No content to update"});
             }
             else {
-                res.send(data)
+                res.status(201).send(data)
             }
 })
 .catch((error)=>{
-    res.status(500).send({message: 'Error Update blog information'})
+    res.status(404).send({message: "No content to update"});
 })
+})
+.catch((err)=>{
+    res.status(400).send({message: "Not blog found with the provided ID"})
 })
 }
 // delete the blog with the blog is specified in the request
@@ -102,7 +104,7 @@ export const delet = (req,res)=>{
     Blogdb.findByIdAndDelete(id)
     .then((data)=>{
         if(!data){
-            res.status(400).send({mesage: `Can not delete with id ${id}. may be id is wrong`})
+            res.status(403).send({mesage: `Content to delete already doesn't exist`})
         }
         else {
             res.send({
