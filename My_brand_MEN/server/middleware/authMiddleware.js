@@ -22,10 +22,9 @@ else if (process.env.NODE_ENV == "test"){
 }   
     if (typeof (bearerHeader) !== 'undefined'){
          //split the bearer from string to the array
-    const bearerArr = bearerHeader.split(" ");
-
+        let bearerArr = bearerHeader.split(" ");
+        const bearerToken = bearerArr[1];
     //get the token from the array
-    const bearerToken = bearerArr[1];
         if(bearerToken){
             jwt.verify(bearerToken,process.env.SECRET_KEY_DB, (err, decodedToken) =>{
                 if(err){
@@ -45,22 +44,12 @@ else if (process.env.NODE_ENV == "test"){
     }
     else{
         // res.status(404).json({message: 'login to access the routes!'});
-        res.status(401).json({Error_message:'The action require to login'});
-
-        // console.log("from middleware");
+        res.status(401).json({Error_message:'The action require to login'})
+        res.status(401).send({message: 'login to access the routes!'});
     }
 
-    // checkUserCred(cookieToken);
-    // checkUserCred(bearerToken);
-    
-
-    
 }
 
-function checkUserCred(token){
-    //verify if the user exist and is verified
-  
-}
 export default requireAuth;
 
 

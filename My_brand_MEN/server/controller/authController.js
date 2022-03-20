@@ -44,7 +44,6 @@ export const signup_post_contro = async (req,res)=>{
     //    res.status(201).json({user:user._id,token:token});
        res.status(201).json({userCred:{
         email: user.email,
-        password: user.password
     },token:token})
 
     }
@@ -71,7 +70,7 @@ export const signup_post_contro = async (req,res)=>{
             },token:token})
         }
         catch(err){
-            res.status(400).json({errorio: err.message});
+            res.status(401).json({response: err.message});
         }
       
     }
@@ -80,7 +79,7 @@ export const signup_post_contro = async (req,res)=>{
     export const logout_get_contro = (req,res) =>{
         // res.cookie('jwt', '', {maxAge:1 });
         res.status(200).json({message:"successfully logged out!"});
-        // res.redirect('/');
+        res.status(200).json({message:"successfully logged out!",  token: null});
     }
 
     export const get_all_users =(req,res)=>{

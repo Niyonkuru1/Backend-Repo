@@ -86,7 +86,12 @@ Blogdb.findByIdAndUpdate(id, req.body, {userFindAndModify:false})
                 res.status(404).send({message: "No content to update"});
             }
             else {
-                res.status(201).send(data)
+                res.status(205).send({
+                    title:data.title,
+                    body:data.body,
+                    author:data.author,
+                    date:data.date
+                })
             }
 })
 .catch((error)=>{

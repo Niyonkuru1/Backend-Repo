@@ -5,6 +5,9 @@ import  bodyparser from "body-parser"
 import  path  from "path";
 import cookieParser from 'cookie-parser';
 
+//swagger deps
+import swaggerUi from "swagger-ui-express";
+import yaml from "yamljs";
 
 import  connectDB  from './server/database/connection.js';
 // app.use(_path);
@@ -30,6 +33,10 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.json());
 app.use(cookieParser())
 
+//swagger setup
+const swaggerDefinition = yaml.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+
 // view engine ( where the parser will get the data from
 // in terms of format )
 app.set('view engine','ejs')
@@ -49,7 +56,7 @@ connectDB();
 
 //routes for testing
 app.get("/api/welcome", (req,res)=>{
-    res.status(200).send({message: "Welcome to the MEN-REST-API"});
+    res.status(302).send({message: "Welcome to the MEN-REST-API"});
 });
 
 import route from './server/routes/blogRoutes.js';

@@ -27,5 +27,4 @@ else {
     route.put('/api/blogs/:id', update);
     route.delete('/api/blogs/:id', delet);
     }
-
 module.exports = route;
