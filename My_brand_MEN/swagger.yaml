@@ -4,7 +4,7 @@ info:
   description: MongoDb ExpressJS Node API
   version: 1.0.0
 servers:
-  - url: http://localhost:3000/api/
+  - url: http://localhost:3000/
     description: Localhost Production server
 components:
   securitySchemes:
@@ -90,7 +90,7 @@ paths:
                     type: string
 
 
-  /blogs:
+  /api/blogs:
     get:
       summary: Retrieves a list of blogs
       description: Retrieves a list of blogs as JSON objects. 
@@ -124,7 +124,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Blog"
   
-  /blogs/{id}:
+  /api/blogs/{id}:
     get:
       summary: Specific Blogs
       description: Retrieves a specific Blogs based on it id. 

@@ -35,7 +35,7 @@ app.use(cookieParser())
 
 //swagger setup
 const swaggerDefinition = yaml.load('./swagger.yaml');
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // view engine ( where the parser will get the data from
 // in terms of format )

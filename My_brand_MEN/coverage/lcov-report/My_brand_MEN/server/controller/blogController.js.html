@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.43% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/37</span>
+                <span class='fraction'>12/38</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.66% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>4/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.43% </span>
+                <span class="strong">31.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/37</span>
+                <span class='fraction'>12/38</span>
             </div>
         
             
@@ -186,7 +186,9 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,7 +272,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,6 +287,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,7 +389,7 @@ export const <span class="fstat-no" title="function not covered" >update </span>
 <span class="cstat-no" title="statement not covered" >if (!req.body){</span>
 <span class="cstat-no" title="statement not covered" >    return r</span>es
     .status(400)
-    .send({message: "Data to be updated doesn't exist, sorry to that!!"})
+    .send({message: "No content to update, point the correct blog"})
 }
 &nbsp;
 const id = <span class="cstat-no" title="statement not covered" >req.params.id;</span>
@@ -393,9 +397,8 @@ const id = <span class="cstat-no" title="statement not covered" >req.params.id;<
 .then(<span class="fstat-no" title="function not covered" >(d</span>ata)=&gt;{
 <span class="cstat-no" title="statement not covered" >    Blogdb.f</span>indById(id)
         .then(<span class="fstat-no" title="function not covered" >(d</span>ata)=&gt;{
-            // console.log(data);
 <span class="cstat-no" title="statement not covered" >            if (!data){</span>
-<span class="cstat-no" title="statement not covered" >                res.</span>status(404).send({message: "Not found user with id" + id})
+<span class="cstat-no" title="statement not covered" >                res.</span>status(404).send({message: "No content to update"});
             }
             else {
 <span class="cstat-no" title="statement not covered" >                res.</span>status(205).send({
@@ -407,8 +410,11 @@ const id = <span class="cstat-no" title="statement not covered" >req.params.id;<
             }
 })
 .catch(<span class="fstat-no" title="function not covered" >(e</span>rror)=&gt;{
-<span class="cstat-no" title="statement not covered" >    res.</span>status(500).send({message: 'Error Update blog information'})
+<span class="cstat-no" title="statement not covered" >    res.</span>status(404).send({message: "No content to update"});
 })
+})
+.catch(<span class="fstat-no" title="function not covered" >(e</span>rr)=&gt;{
+<span class="cstat-no" title="statement not covered" >    res.</span>status(400).send({message: "Not blog found with the provided ID"})
 })
 }
 // delete the blog with the blog is specified in the request
@@ -418,7 +424,7 @@ export const <span class="fstat-no" title="function not covered" >delet </span>=
 <span class="cstat-no" title="statement not covered" >    Blogdb.f</span>indByIdAndDelete(id)
     .then(<span class="fstat-no" title="function not covered" >(d</span>ata)=&gt;{
 <span class="cstat-no" title="statement not covered" >        if(!data){</span>
-<span class="cstat-no" title="statement not covered" >            res.</span>status(400).send({mesage: `Can not delete with id ${id}. may be id is wrong`})
+<span class="cstat-no" title="statement not covered" >            res.</span>status(403).send({mesage: `Content to delete already doesn't exist`})
         }
         else {
 <span class="cstat-no" title="statement not covered" >            res.</span>send({
@@ -439,7 +445,7 @@ export const <span class="fstat-no" title="function not covered" >delet </span>=
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Mar 18 2022 23:29:42 GMT+0200 (South Africa Standard Time)
+                at Sun Mar 20 2022 03:08:00 GMT+0200 (South Africa Standard Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

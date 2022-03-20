@@ -19,14 +19,14 @@ after((done)=>{
 describe('/auth/sign TEST on the bloges_DB Collection', () => {
     it("Should test that Auth ROUTES, MIDDLEWARE and DATABASE are working", (done) => {
         chai.request(app)
-            .get("/api/auth/all-users")
+            .get("/auth/all-users")
             .end((err, res) => {
                 //  let len = 5;
                 let users = res.body;
                 // items = users.length;
                 res.should.have.status(401);
-                expect(users.message).to.be.a("string");
-                expect(users.message).to.be.equal('login to access the routes!');
+                expect(users.Error_message).to.be.a("string");
+                expect(users.Error_message).to.be.equal('The action require to login');
                 // console.log(users.message);
                 done();
            })  
@@ -38,7 +38,7 @@ it("Should create a valid user into the databse", (done) => {
         password:"test123"
     }
     chai.request(app)
-        .post("/api/auth/signup")
+        .post("/auth/signup")
         .send(newUser)
         .end((err, res) => {
             let users = res.body;
@@ -46,7 +46,7 @@ it("Should create a valid user into the databse", (done) => {
             // expect(users).to.be.an('array');
             expect(users).to.be.an('object');
             expect(users).to.have.all.keys('userCred', 'token');
-            expect(users.userCred).to.have.all.keys('email', 'password');
+            expect(users.userCred).to.have.all.keys('email');
             expect(users.token, users.userCred.email, users.userCred.password).to.be.a('string');
             // console.log(users.userCred.email);
             done();
@@ -59,7 +59,7 @@ it("Should create a valid user into the databse", (done) => {
         password:"test123"
     }
     chai.request(app)
-        .post("/api/auth/login")
+        .post("/auth/login")
         .send(User)
         .end((err, res) => {
             let users = res.body;
@@ -79,7 +79,7 @@ it("Should create a valid user into the databse", (done) => {
           token:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMzQzYWVlMjI5ODhmNGI0MDc1NmUwZSIsImlhdCI6MTY0NzU5MDEzMSwiZXhwIjoxNjQ3ODQ5MzMxfQ.vV9oFyDieKZD0Yzxa7H8ENjHXyglihkWW_2_8NVAOQ8'
       }
     chai.request(app)
-        .get("/api/auth/all-users")
+        .get("/auth/all-users")
         .send(tokeni)
         .end((err, res) => {
             let users = res.body;
@@ -96,14 +96,13 @@ it("Should create a valid user into the databse", (done) => {
 
   it ("Should successfully logout the user with get request", (done)=>{
     chai.request(app)
-        .get("/api/auth/logout")
+        .get("/auth/logout")
         .end((err, res) => {
             let users = res.body;
             res.should.have.status(200);
             // expect(users).to.be.an('array');
             expect(users).to.be.an('object');
-            expect(users).to.have.all.keys('message', 'token');
-            expect(users.token).to.be.a('null');
+            expect(users).to.have.all.keys('message');
             expect(users.message).to.be.a('string');
             expect(users.message).to.be.equal("successfully logged out!");
             // console.log(users.message);
