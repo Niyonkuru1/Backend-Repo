@@ -3,7 +3,7 @@ const route = express.Router();
 import {allBlogsRoutes, addBlogRoutes, updateBlogRoutes, 
     deleteBlogRoutes, homeRoutes} from '../services/render';
 
-import {create, find, update, delet} from '../controller/blogController';
+import {create, find, findOne, update, delet} from '../controller/blogController';
 import requireAuth from '../middleware/authMiddleware';
 
 route.get('/',homeRoutes);
@@ -17,6 +17,7 @@ route.get('/delete-blog',requireAuth,deleteBlogRoutes);
 if (process.env.NODE_ENV == "production"){
 route.post('/api/blogs',requireAuth, create);
 route.get('/api/blogs', find);
+route.get('/api/blogs/:id', find);
 route.put('/api/blogs/:id',requireAuth, update);
 route.delete('/api/blogs/:id',requireAuth, delet);
 }
@@ -24,6 +25,7 @@ route.delete('/api/blogs/:id',requireAuth, delet);
 else {
     route.post('/api/blogs', create);
     route.get('/api/blogs', find);
+    route.get('/api/blogs/:id', find);
     route.put('/api/blogs/:id', update);
     route.delete('/api/blogs/:id', delet);
     }

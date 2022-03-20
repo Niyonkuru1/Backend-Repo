@@ -37,14 +37,14 @@ export const create = (req,res)=>{
 
 //retrieve and return all blogs / retrieve and return a single user
 export const find = (req,res)=>{
-    if (req.query.id){
-        const id = req.query.id;
+    if (req.params.id){
+        const id = req.params.id;
         // console.log('hello hello ' + id);
         Blogdb.findById(id)
         .then((data)=>{
             if (!data){
                 // res.status(404).send({message: "Not found user with id" + id})
-                res.status(404).json({message: "Not found user with id" + id})
+                res.status(404).json({message: "Not found user with id"});
             }
             else {
                 // res.send(data)
