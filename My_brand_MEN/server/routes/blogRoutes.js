@@ -16,7 +16,7 @@ route.get('/delete-blog',requireAuth,deleteBlogRoutes);
 // API then 
 if (process.env.NODE_ENV == "production"){
 route.post('/api/blogs',requireAuth, create);
-route.get('/api/blogs',requireAuth, find);
+route.get('/api/blogs', find);
 route.put('/api/blogs/:id',requireAuth, update);
 route.delete('/api/blogs/:id',requireAuth, delet);
 }

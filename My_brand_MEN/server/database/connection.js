@@ -1,14 +1,18 @@
 import {mongoose} from "mongoose";
+import dotenv from "dotenv";
+import  path  from "path";
+
+dotenv.config({path: path.resolve('./config.env')});
+
 var DB_URL;
 
 if (process.env.NODE_ENV == "production"){
-    DB_URL = "mongodb+srv://theblog:testing123@cluster0.kwml0.mongodb.net/My_DB?retryWrites=true&w=majority";
+    DB_URL = process.env.MONGO_URL;
 }
 
 else if (process.env.NODE_ENV == "test"){
-    DB_URL = "mongodb+srv://theblog:testing123@cluster0.kwml0.mongodb.net/My_DB_Testing?retryWrites=true&w=majority";
+    DB_URL = process.env.MONGO_URL_TEST;
 }
-
 
 const connectDB = async () => {
     try{

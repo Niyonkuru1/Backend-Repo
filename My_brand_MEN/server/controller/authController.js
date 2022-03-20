@@ -78,8 +78,8 @@ export const signup_post_contro = async (req,res)=>{
 
     export const logout_get_contro = (req,res) =>{
         // res.cookie('jwt', '', {maxAge:1 });
+        res.status(200).json({message:"successfully logged out!"});
         res.status(200).json({message:"successfully logged out!",  token: null});
-        // res.redirect('/');
     }
 
     export const get_all_users =(req,res)=>{
