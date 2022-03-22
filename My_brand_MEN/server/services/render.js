@@ -1,19 +1,19 @@
-exports.homeRoutes = (req,res)=>{
-    res.render('index');
+export const homeRoutes = (req,res)=>{
+    res.render('static/index');
 }
 
-exports.allBlogsRoutes = (req,res)=>{
-    res.render('viewblogs');
+export const allBlogsRoutes = (req,res)=>{
+    res.render('static/viewblogs');
 }
 
-exports.addBlogRoutes = (req,res)=>{
-    res.render('create');
+export const addBlogRoutes = (req,res)=>{
+    res.render('static/create');
 }
 
-exports.updateBlogRoutes = (req,res)=>{
-    res.render('update');
+export const updateBlogRoutes = (req,res)=>{
+    res.render('static/update');
 }
 
-exports.deleteBlogRoutes = (req,res)=>{
-    res.render('delete');
+export const deleteBlogRoutes = (req,res)=>{
+    res.render('static/delete');
 }

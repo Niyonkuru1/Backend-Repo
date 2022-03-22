@@ -1,8 +1,8 @@
-var Blogdb = require('../model/model');
+import Blogdb from '../model/model';
 
 
 //create and save new blog
-exports.create = (req,res)=>{
+export const create = (req,res)=>{
 
     //validate request
     if ( !req.body){
@@ -11,34 +11,35 @@ exports.create = (req,res)=>{
         });
         return;
     }
-
+    console.log(req.body);
     //new blog
-    const blog = new Blogdb({
-        name: req.body.name,
-        email: req.body.email,
-        gender: req.body.gender,
-        status: req.body.status
+    const bloge = new Blogdb({
+        title: req.body.title,
+        body: req.body.body,
+        author: req.body.author,
+        date: req.body.date
     })
-
     //save blog to database
-    blog
-    .save(blog)
+    bloge
+    .save(bloge)
     .then ((data) =>{
-        res.send(data)
+        console.log(data);
+        console.log(bloge);
+        res.send(data);
     })
     .catch((error)=>{
+        // console(req.body);
         res.status(500).send({
-            message:error.message || "Some error occured while creating a create operation"
+            message: "Some error occured while creating a create operation"
         });
     });
 
 }
 
 //retrieve and return all blogs / retrieve and return a single user
-exports.find = (req,res)=>{
+export const find = (req,res)=>{
     if (req.query.id){
         const id = req.query.id;
-
         Blogdb.findById(id)
         .then((data)=>{
             if (!data){
@@ -65,7 +66,7 @@ exports.find = (req,res)=>{
 }
 
 //update a new identified blog with the blog id
-exports.update = (req,res)=>{
+export const update = (req,res)=>{
 if (!req.body){
     return res
     .status(400)
@@ -73,22 +74,25 @@ if (!req.body){
 }
 
 const id = req.params.id;
-Blogdb.findByIdAndUpdate(id,req.body, {userFindAndModify:false})
+Blogdb.findByIdAndUpdate(id, req.body, {userFindAndModify:false})
 .then((data)=>{
-    if (!data){
-    res.status(400).send({message:`cannot update user with ${id}. may be blog not found`})
-    }
-    else {
-        res.send(data)
-    }
+    Blogdb.findById(id)
+        .then((data)=>{
+            console.log(data);
+            if (!data){
+                res.status(404).send({message: "Not found user with id" + id})
+            }
+            else {
+                res.send(data)
+            }
 })
 .catch((error)=>{
     res.status(500).send({message: 'Error Update blog information'})
 })
+})
 }
-
 // delete the blog with the blog is specified in the request
-exports.delete = (req,res)=>{
+export const delet = (req,res)=>{
     const id = req.params.id;
 
     Blogdb.findByIdAndDelete(id)
@@ -108,4 +112,3 @@ exports.delete = (req,res)=>{
         });
     });
 }
-

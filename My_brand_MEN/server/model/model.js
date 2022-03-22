@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 var schema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
-        required:true
+        // required:true
     },
-    email: {
+    body: {
         type: String,
-        required:true,
-        unique:true
+        // required:true
+        // unique:true
     },
-    gender: String,
-    status: String
+    author: String,
+    date: String
 })
 
-const Blogdb = mongoose.model("blog", schema);
+const Blogdb = mongoose.model("bloge", schema);
 
 module.exports = Blogdb;
